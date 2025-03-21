@@ -26,6 +26,12 @@ const hazardSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    resolvedImage:[
+        {
+            type: String,
+            default: null
+        }
+    ],
     location:{
         latitude: {
             type: String,

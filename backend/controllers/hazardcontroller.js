@@ -94,7 +94,7 @@ const getAllHazards = async (req,res)=>{
 
 const resolveHazards = async(req,res)=>{
    try {
-      const { id , discription} = req.body;
+      const { id , discription , image1,image2 } = req.body;
      
         
 
@@ -103,13 +103,26 @@ const resolveHazards = async(req,res)=>{
     if(!hazard){
       return res.json({message:"Hazard not found"}).status(400);
     }
-       
-     const updatedHazard = await hazardshmea.findByIdAndUpdate(id,{
-      status:"Resolved",
-      discription:discription
-     })
+       if(!image1 && !image2){
+
+         const updatedHazard = await hazardshmea.findByIdAndUpdate(id,{
+          status:"Resolved",
+          discription:discription
+         })
+         await updatedHazard.save();
+       }else{
+        const updatedHazard = await hazardshmea.findByIdAndUpdate(id,{
+          status:"Resolved",
+          discription:discription,
+          resolvedImage : [
+            image1,
+            image2
+          ]
+         })
+         await updatedHazard.save();
+       }
      
-     await updatedHazard.save();
+   
 
      return res.json({message:"Hazard resolved successfully"}).status(200);
    } catch (error) {
