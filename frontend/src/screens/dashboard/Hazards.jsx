@@ -31,6 +31,7 @@ const Hazards = () => {
 
   const [filter, setFilter] = useState("all");
    const [filteredHazards, setFilteredHazards] = useState(null);
+   const [selectedHazard, setSelectedHazard] = useState(null);
   const fetchHazards = async () => {
     try {
       const response = await axiosInstance.get("/hazard/getallhazards");
@@ -85,6 +86,16 @@ const Hazards = () => {
     }
   }
 
+  const area = [
+    "Mettupalayam",
+    "Pollachi",
+    "Valparai",
+    "Karamadai",
+    "Karumathampatti",
+    "Madukkarai"
+  ]
+  
+
   useEffect(() => {
     fetchHazards();
   }, []);
@@ -110,6 +121,24 @@ const Hazards = () => {
             <option value="all">All</option>
             <option value="Resolved">Resolved</option>
             <option value="Active">Unresolved</option>
+          </select>
+
+          <p>Filter By Municipality</p>
+          <select value={selectedHazard} onChange={(e)=>{
+            setSelectedHazard(e.target.value)
+            if(e.target.value === 'all'){
+              setFilteredHazards(hazards)
+            }
+            else{
+              setFilteredHazards(hazards.filter((item)=>item.location.area === e.target.value))
+            }
+          }} className=" rounded-md cursor-pointer px-2 my-1">
+            <option value="all">All</option>
+            {
+              area.map((item,index)=>(
+                <option key={index} value={item}>{item}</option>
+              ))
+            }
           </select>
 
        </div>
