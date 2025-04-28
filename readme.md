@@ -10,7 +10,13 @@
 </div>
 
 
+## Web Dashboard for Officials
 
+<div  style="display:flex; flex-direction:column; gap:10px;" >
+<img src="./assets/dashboard.png"   />
+<img src="./assets/mapweb.png"   />
+<img src="./assets/hazards.png"   />
+</div>
 
 ## Overview
 
