@@ -10,7 +10,7 @@ const fs = require("fs");
 const axios = require("axios");
 const port = 3000;
 const FormData = require("form-data");
-
+const updateVehicleStatus = require("./middleware/updateVehcileStatus");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -89,6 +89,7 @@ const uploadToCloudinary = async (filePath) => {
 app.use("/admin", require("./routes/adminroutes"));
 app.use("/hazard", require("./routes/hazardroutes"));
 app.use("/user", require("./routes/userRoutes"));
+app.use("/vehicle", require("./routes/Vechicleroutes"));
 app.use('/team', require('./routes/teamroute'));
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -96,20 +97,31 @@ app.get("/", (req, res) => {
 
 app.post("/test", upload.single("image"), async (req, res) => {
  
+  
   console.log(req.body);
-  const file = req.file;
+  try {
+     const file = req.file;
     if(file){
         console.log(file.path);
         const url = await uploadToCloudinary(file.path);
-      
-        const { cctv_id, hazard_type, location } = req.body;
-
+        fs.unlink(file.path, (err) => {
+          if (err) {
+            console.error("Error deleting file:", err);
+          } else {
+            console.log("File deleted successfully");
+          }
+        }
+        );
+        const { vehicle_id , location } = req.body;
          console.log(req.body);
-        if (cctv_id) {
+        if (vehicle_id) {
+          
+
+          
           const newhazard = new hazardshmea({
-            cctv_id,
+            vehicle_id,
             image: url,
-            hazard_type,
+            hazard_type:"Pothole",
             location:{
                 latitude:location[0],
                 longitude:location[1]
@@ -119,17 +131,43 @@ app.post("/test", upload.single("image"), async (req, res) => {
     
           return res.send("received successfully");
         } else {
-          res.send("error");
+           return   res.send("error");
         }
      
 
     };
-  
+  } catch (error) {
+     return res.json({ message: "Error uploading file", error: error.message }).status(500);
+  }
  
-
-  res.send("done");
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.post("/updateVehicleStatus", async (req, res) => {
+  const { id} = req.body;
+  try {
+    const result = await updateVehicleStatus(id, "connected");
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Error updating vehicle status:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
+const val = [10.909177, 77.004637];
+
+app.get("/simulatedlat", (req, res) => {
+  res.status(200).send(val);
+
+  const latOffset = 100 / 111000; // ~0.0009009
+  const lonOffset = 100 / (111000 * Math.cos(val[0] * Math.PI / 180)); // Adjusted for latitude
+  console.log(val);
+  
+  val[0] += latOffset;
+  val[1] += lonOffset;
+});
+
+
+app.listen(process.env.X_ZOHO_CATALYST_LISTEN_PORT || 3000, () => {
+  console.log(`Server is running on http://localhost:${process.env.X_ZOHO_CATALYST_LISTEN_PORT || 3000}`);
 });

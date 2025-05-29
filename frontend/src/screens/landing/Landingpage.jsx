@@ -8,19 +8,9 @@ const Landingpage = () => {
   
   const Features = [
     {
-      title: "AI-Powered Hazard Detection",
-      description: "Detects accidents, potholes, and debris using CCTV footage.",
-      icon: "🚧"
-    },
-    {
       title: "Interactive Live Map",
       description: "View and track road hazards in real time.",
       icon: "🗺️"
-    },
-    {
-      title: "Citizen Reporting & Uyir Coins",
-      description: "Community participation with rewards for reporting hazards.",
-      icon: "💰"
     },
     {
       title: "Automated Alerts & Notifications",
@@ -86,25 +76,6 @@ const Landingpage = () => {
         
      </div>
 
-
-
-      {/* <div className=" h-screen flex  flex-col  items-center justify-center">
-        <div className="flex gap-2">
-          <img
-            className=" w-44  h-44 rounded-full  border-2  object-contain border-purple-800"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_ZBwmIgtsBN10WIQslSrwQrSILs-ICtZPAA&s"
-            alt=""
-          />
-            <img
-            className="  w-44  h-44 rounded-full  border-2  object-contain border-purple-800"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMcCuz569WplPQBQs_A3_XuVNLW9D-VTgKdQ&s"
-            alt=""
-          />
-        </div>
-        <p className="pt-4 font-Inter font-bold text-xl">"Capable of Integrating 15,000+ CCTV Cameras Across Coimbatore to</p>
-        <p className=" font-Inter font-bold text-xl">Detect Hazards in Real-Time"</p>
-
-      </div> */}
     </div>
   );
 };

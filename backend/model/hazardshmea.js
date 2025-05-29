@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 
 const hazardSchema = new mongoose.Schema({
-    cctv_id: {
+    vehicle_id : {
         type: String,
         default: null
     },

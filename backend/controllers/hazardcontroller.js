@@ -84,7 +84,9 @@ const addmorehazrds =async (req,res)=>{
 }
 const getAllHazards = async (req,res)=>{
     try {
-        const data = await hazardshmea.find({});
+        // filter by last first
+        const data = await hazardshmea.find({}).sort({ created_at: -1 });
+
         return res.json({data}).status(200)
     } catch (error) {
     return res.json({ message: error.message }).status(400);
@@ -151,10 +153,28 @@ const verifyHazard = async(req,res)=>{
   }
 }
 
+
+const getStats  = async (req, res) => {
+  try {
+    const totalHazards = await hazardshmea.countDocuments();
+    const activeHazards = await hazardshmea.countDocuments({ status: "Active" });
+    const resolvedHazards = await hazardshmea.countDocuments({ status: "Resolved" });
+
+    return res.json({
+      totalHazards,
+      activeHazards,
+      resolvedHazards
+    }).status(200);
+  } catch (error) {
+    return res.json({ message: error.message }).status(400);
+  }
+}
+
 module.exports={
     createHazard,
     getAllHazards,
     addmorehazrds,
     resolveHazards,
-    verifyHazard
+    verifyHazard,
+    getStats
 }

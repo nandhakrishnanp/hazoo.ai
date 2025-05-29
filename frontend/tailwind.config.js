@@ -12,10 +12,10 @@ export default {
         "Popin":["Poppins", "serif"],
       },
       colors:{
-        "primary":"#FF0000",
-        "secondary":"#950101",
+        "primary":"#7A1CAC",
+        "secondary":"#AD49E1",
         "tertiary":"#3D0000",
-        "accent":"#000000",
+        "accent":"#2E073F",
       },
       backgroundImage:{
         "bg1":"url('https://img.freepik.com/free-photo/empty-road-with-blacklight_400718-34.jpg')",

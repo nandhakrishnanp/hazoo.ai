@@ -3,16 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import dash from "../assets/dash.svg";
 import danger from "../assets/danger.svg";
-import bottom from "../assets/bottom.svg";
-import bell from "../assets/bell.svg";
-import cctv  from "../assets/cctv.svg";
 import maps from "../assets/maps.svg";
-import team from "../assets/team.svg";
-
-
+import bus from "../assets/bus.svg";
 const Sidebar = () => {
   const nav = useNavigate();
   const [active, setActive] = React.useState("home");
+
+  const handleLogOut = () => {
+    toast.success("Logged out successfully");
+    localStorage.clear();
+    nav("/");
+  };
+
   return (
     <div className=" w-[18%]   h-screen">
       <div className=" px-4 py-3">
@@ -31,8 +33,7 @@ const Sidebar = () => {
           </p>
           <button
             onClick={() => {
-              nav("/");
-              toast.success("Logged out successfully");
+               handleLogOut()
             }}
             className=" bg-primary cursor-pointer text-sm font-Popin px-2 py-[1px] mt-1 text-white rounded-lg"
           >
@@ -45,48 +46,55 @@ const Sidebar = () => {
         <p className="text-sm font-Popin font-semibold text-gray-500">
           Dashboard
         </p>
-        <div onClick={()=>{
-          nav('/dashboard/home')
-          setActive('home')
-        }} className={`flex ${active=='home' ? 'bg-primary/20 rounded-md' :null} items-center p-2  transition-all duration-100  mt-2  cursor-pointer hover:bg-slate-100`}>
+        <div
+          onClick={() => {
+            nav("/dashboard/home");
+            setActive("home");
+          }}
+          className={`flex ${
+            active == "home" ? "bg-primary/20 rounded-md" : null
+          } items-center p-2  transition-all duration-100  mt-2  cursor-pointer hover:bg-slate-100`}
+        >
           <img className=" w-6 h-6" src={dash} alt="" />
           <p className="cursor-pointer font-Popin ml-2">Home</p>
         </div>
-    
-        <div onClick={()=>{
-          nav('/dashboard/map')
-          setActive('map')
-        }} className={`flex ${active=='map' ? 'bg-primary/20 rounded-md' :null} items-center p-2  transition-all duration-100  cursor-pointer hover:bg-slate-100`}>
+
+        <div
+          onClick={() => {
+            nav("/dashboard/map");
+            setActive("map");
+          }}
+          className={`flex ${
+            active == "map" ? "bg-primary/20 rounded-md" : null
+          } items-center p-2  transition-all duration-100  cursor-pointer hover:bg-slate-100`}
+        >
           <img className=" w-6 h-6" src={maps} alt="" />
           <p className="cursor-pointer font-Popin ml-2">Map View</p>
         </div>
-        <div onClick={()=>{
-          nav('/dashboard/cctv')
-          setActive('cctv')
-        }} className={`flex ${active=='cctv' ? 'bg-primary/20 rounded-md' :null} items-center p-2  transition-all duration-100   cursor-pointer hover:bg-slate-100`}>
-          <img className=" w-6 h-6" src={cctv} alt="" />
-          <p className="cursor-pointer font-Popin ml-2">Live Feed</p>
-        </div>
-        <div onClick={()=>{
-          nav('/dashboard/hazards')
-          setActive('hazards')
-        }}className={`flex ${active=='hazards' ? 'bg-primary/20 rounded-md' :null} items-center p-2  transition-all duration-100   cursor-pointer hover:bg-slate-100`}>
+
+        <div
+          onClick={() => {
+            nav("/dashboard/hazards");
+            setActive("hazards");
+          }}
+          className={`flex ${
+            active == "hazards" ? "bg-primary/20 rounded-md" : null
+          } items-center p-2  transition-all duration-100   cursor-pointer hover:bg-slate-100`}
+        >
           <img className=" w-6 h-6" src={danger} alt="" />
           <p className="cursor-pointer font-Popin ml-2">Hazards</p>
         </div>
-        <div onClick={()=>{
-          nav('/dashboard/analytics')
-          setActive('analytics')
-        }} className={`flex ${active=='analytics' ? 'bg-primary/20 rounded-md' :null} items-center p-2  transition-all duration-100   cursor-pointer hover:bg-slate-100`}>
-          <img className=" w-6 h-6" src={bottom} alt="" />
-          <p className="cursor-pointer  font-Popin ml-2">Analytics</p>
-        </div>
-        <div onClick={()=>{
-          nav('/dashboard/team')
-          setActive('team')
-        }} className={`flex ${active=='team' ? 'bg-primary/20 rounded-md' :null} items-center p-2  transition-all duration-100   cursor-pointer hover:bg-slate-100`}>
-          <img className=" w-6 h-6" src={team} alt="" />
-          <p className="cursor-pointer  font-Popin ml-2">Team</p>
+        <div
+          onClick={() => {
+            nav("/dashboard/Vehicle");
+            setActive("analytics");
+          }}
+          className={`flex ${
+            active == "analytics" ? "bg-primary/20 rounded-md" : null
+          } items-center p-2  transition-all duration-100   cursor-pointer hover:bg-slate-100`}
+        >
+          <img className=" w-6 h-6" src={bus} alt="" />
+          <p className="cursor-pointer font-Popin ml-2">Vehicle</p>
         </div>
       </div>
     </div>

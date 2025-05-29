@@ -1,5 +1,5 @@
 const adminSchema =require('../model/adminShmea')
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 
 const loginadmin = async (req, res) => {

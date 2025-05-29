@@ -1,5 +1,5 @@
 
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const user = require("../model/userShmea");
 const loginUser = async (req, res) => {
   const { username, password } = req.body;

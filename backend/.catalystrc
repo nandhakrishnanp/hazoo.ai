@@ -1,0 +1,30 @@
+{
+  "defaults": {
+    "project": 1,
+    "env": 1
+  },
+  "actives": {
+    "project": 1,
+    "env": 1
+  },
+  "projects": [
+    {
+      "idx": 1,
+      "id": "8241000000053001",
+      "name": "hazooai",
+      "domain": {
+        "id": "50027852561",
+        "name": "hazooai-60030624738.development"
+      },
+      "timezone": "Asia/Kolkata",
+      "env": [
+        {
+          "idx": 1,
+          "id": "60030624738",
+          "name": "Development",
+          "type": 3
+        }
+      ]
+    }
+  ]
+}

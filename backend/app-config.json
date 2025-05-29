@@ -1,0 +1,10 @@
+{
+	"command": "node server.js",
+	"build_path": "C:\\Projects\\Hazzoai\\backend",
+	"stack": "node20",
+	"env_variables": {
+
+	},
+	"memory": 256,
+	"scripts": {}
+}

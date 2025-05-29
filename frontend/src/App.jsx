@@ -12,6 +12,7 @@ import Analytics from "./screens/dashboard/Analytics";
 import Cctv from "./screens/dashboard/Cctv";
 import ResolvedHazards from "./screens/dashboard/ResolvedHazards";
 import Team from "./screens/dashboard/Team";
+import Bus from "./screens/dashboard/Bus";
 
 const App = () => {
   return (
@@ -37,10 +38,9 @@ const App = () => {
           <Route path="home" element={<Home />} />
           <Route path="map" element={<Map />} />
           <Route path="hazards" element={<Hazards />} />
-          <Route path="analytics" element={<Analytics />} />
-          <Route path="cctv" element={<Cctv />} />
           <Route path="resolvedhazards" element={<ResolvedHazards />} />
           <Route path="team" element={<Team />} />
+          <Route path="Vehicle" element={<Bus/>} />
         </Route>
       </Routes>
       </>
