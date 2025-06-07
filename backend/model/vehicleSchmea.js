@@ -38,12 +38,25 @@ const vehicleSchema = new mongoose.Schema({
             type: String,
             default: null
         },
+        ip : {
+            type: String,
+            default: null
+        }
     }, 
     
 },{
     timestamps: true,
     versionKey: false
 });
+
+// Set status to "Disconnected" for all vehicles every 10 minutes
+setInterval(async () => {
+    try {
+        await mongoose.model('Vehicle').updateMany({}, { status: "Disconnected" });
+    } catch (err) {
+        console.error('Error updating vehicle status:', err);
+    }
+}, 10 * 60 * 1000); // 10 minutes in milliseconds
 
 
 

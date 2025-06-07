@@ -14,6 +14,8 @@ const getAllVehicles = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
     }
+
+    
 const getVehicleById = async (req, res) => {
     const { id } = req.params;
     try {
@@ -50,25 +52,27 @@ const addVehicle = async (req, res) => {
 }
 
 
-const getVechicleConfig  =async (res, req) => {
+const getVechicleConfig  =async (req, res) => {
     try {
         const vehicle = await vehicleSchmea.findOne({ vehicle_id: req.params.id });
 
         if (!vehicle) {
-            return res.status(404).json({ message: "Vehicle not found" });
+            return res.json({ message: "Vehicle not found" }).status(404);
         }
          const config ={
              mode: vehicle.mode,
                 range: vehicle.range,
                 rtsp: {
                     username: vehicle.rtsp.username,
-                    password: vehicle.rtsp.password
-                }
+                    password: vehicle.rtsp.password,
+                    ip: vehicle.rtsp.ip,
+                },
+                
          }
-        res.status(200).json(config);
+        res.json(config).status(200);
     } catch (error) {
         console.error("Error fetching vehicle config:", error);
-        res.status(500).json({ message: "Internal server error" });
+        res.json({ message: error.message}).status(500);
     }
 }
 

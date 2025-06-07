@@ -47,8 +47,8 @@ const Home = () => {
        const data = await response.data;
         setStats({
           hazardsIdentified: data.totalHazards || 0,
-          hazardsResolved: data.activeHazards || 0,
-          activeHazards: data.resolvedHazards || 0
+          hazardsResolved: data.resolvedHazards || 0,
+          activeHazards: data.activeHazards || 0
         });
     } catch (error) {
       console.error("Error fetching stats:", error);

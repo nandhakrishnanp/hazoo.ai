@@ -10,7 +10,7 @@ const fs = require("fs");
 const axios = require("axios");
 const port = 3000;
 const FormData = require("form-data");
-const updateVehicleStatus = require("./middleware/updateVehcileStatus");
+const {updateVehicleStatus}= require("./middleware/updateVehcileStatus");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -34,7 +34,7 @@ const upload = multer({
   },
 });
 dotenv.config();
-app.use(cors());
+  app.use(cors());
 app.use(express.json());
 
 const connectDb = async () => {

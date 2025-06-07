@@ -14,6 +14,7 @@ import {
   Eye,
 } from "lucide-react";
 import axiosInstance from "../../../axiosConfig";
+import { toast } from "react-toastify";
 
 const BusComponent = () => {
   const [vehicles, setVehicles] = useState([]);
@@ -93,6 +94,7 @@ const BusComponent = () => {
         fetchVehicles(); // Refresh the vehicle list after update
         setSelectedVehicle(null);
         console.log("Vehicle details updated successfully:", res.data);
+        toast.success("Vehicle details updated successfully");
       }
     } catch (error) {
       console.error("Error updating vehicle details:", error);
@@ -273,8 +275,9 @@ const BusComponent = () => {
     const [range, setRange] = useState(vehicle.range || "");
     const [username, setUsername] = useState(vehicle.rtsp?.username || "");
     const [password, setPassword] = useState(vehicle.rtsp?.password || "");
+    const [ip, setIp] = useState(vehicle.rtsp?.ip || "");
     const [saving, setSaving] = useState(false);
-     const [isShowPassword, setIsShowPassword] = useState(false);
+    const [isShowPassword, setIsShowPassword] = useState(false);
     useEffect(() => {
       setMode(vehicle.mode || "");
       setRange(vehicle.range || "");
@@ -287,87 +290,96 @@ const BusComponent = () => {
       await onSave(vehicle.vehicle_id, {
         mode,
         range,
-        rtsp: { username, password },
+        rtsp: { username, password , ip },
       });
       setSaving(false);
     };
 
     return (
       <div className="mt-6">
-      <h4 className="text-lg font-semibold mb-2">Edit Configuration</h4>
-      <div className="space-y-4">
-        <div className="flex items-center space-x-2">
-        <span className="font-medium w-32">Mode:</span>
-        <select
-          value={mode}
-          onChange={(e) => setMode(e.target.value)}
-          className="border rounded px-2 py-1"
-        >
-          <option value="Automatic">Automatic</option>
-          <option value="Manual">Manual</option>
-        </select>
-        </div>
-        {mode === "Manual" && (
-        <div className="flex items-center space-x-2">
-          <span className="font-medium w-32">Range:</span>
-          <input
-          className="border rounded px-2 py-1 flex-1"
-          value={range}
-          onChange={(e) => setRange(e.target.value)}
-          placeholder="Range (in m) "
-          />
-        </div>
-        )}
-        <div className="flex items-center space-x-2">
-        <span className="font-medium w-32">RTSP Username:</span>
-        <input
-          className="border rounded px-2 py-1 flex-1"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Username"
-        />
-        </div>
-        <div className="flex items-center space-x-2">
-        <span className="font-medium w-32">RTSP Password:</span>
-        <div className="relative flex-1">
-          <input
-            type={isShowPassword ? "text" : "password"}
-            className="border rounded px-2 py-1 w-full"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-          />
-          <button
-            type="button"
-            onClick={() => setIsShowPassword(!isShowPassword)}
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-          >
-            {isShowPassword ? (
-              <Eye className="h-4 w-4" />
-            ) : (
-              <EyeClosed className="h-4 w-4 " />
-            )}
-          </button>
+        <h4 className="text-lg font-semibold mb-2">Edit Configuration</h4>
+        <div className="space-y-4">
+          <div className="flex items-center space-x-2">
+            <span className="font-medium w-32">Mode:</span>
+            <select
+              value={mode}
+              onChange={(e) => setMode(e.target.value)}
+              className="border rounded px-2 py-1"
+            >
+              <option value="Automatic">Automatic</option>
+              <option value="Manual">Manual</option>
+            </select>
           </div>
-          </div>
+          {mode === "Manual" && (
+            <div className="flex items-center space-x-2">
+              <span className="font-medium w-32">Range:</span>
+              <input
+                className="border rounded px-2 py-1 flex-1"
+                value={range}
+                onChange={(e) => setRange(e.target.value)}
+                placeholder="Range (in m) "
+              />
+            </div>
+          )}
+              <div className="flex items-center space-x-2">
+            <span className="font-medium w-32">RTSP IP:</span>
+            <input
+              className="border rounded px-2 py-1 flex-1"
+              value={ip}
+              onChange={(e) => setIp(e.target.value)}
+              placeholder="RTSP IP Address"
+            />
+            </div>
+          <div className="flex items-center space-x-2">
 
-      </div>
-      <div className="flex gap-2 mt-4">
-        <button
-        className="px-4 py-2 bg-primary text-white rounded hover:bg-primary/95"
-        onClick={handleSave}
-        disabled={saving}
-        >
-        {saving ? "Saving..." : "Save"}
-        </button>
-        <button
-        className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
-        onClick={onCancel}
-        disabled={saving}
-        >
-        Cancel
-        </button>
-      </div>
+            <span className="font-medium w-32">RTSP Username:</span>
+            <input
+              className="border rounded px-2 py-1 flex-1"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Username"
+            />
+          </div>
+          <div className="flex items-center space-x-2">
+            <span className="font-medium w-32">RTSP Password:</span>
+            <div className="relative flex-1">
+              <input
+                type={isShowPassword ? "text" : "password"}
+                className="border rounded px-2 py-1 w-full"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+              />
+              <button
+                type="button"
+                onClick={() => setIsShowPassword(!isShowPassword)}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+              >
+                {isShowPassword ? (
+                  <Eye className="h-4 w-4" />
+                ) : (
+                  <EyeClosed className="h-4 w-4 " />
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="flex gap-2 mt-4">
+          <button
+            className="px-4 py-2 bg-primary text-white rounded hover:bg-primary/95"
+            onClick={handleSave}
+            disabled={saving}
+          >
+            {saving ? "Saving..." : "Save"}
+          </button>
+          <button
+            className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+            onClick={onCancel}
+            disabled={saving}
+          >
+            Cancel
+          </button>
+        </div>
       </div>
     );
   }
