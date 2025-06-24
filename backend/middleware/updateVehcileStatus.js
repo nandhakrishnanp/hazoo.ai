@@ -3,11 +3,21 @@ const vehicleSchmea = require("../model/vehicleSchmea");
 
 
 
-const updateVehicleStatus = async( id , status) => {
+const updateVehicleStatus = async( {
+      vehicleId,
+    latitude,
+    longitude
+} , status) => {
     try {
         const vehicle = await vehicleSchmea.findOneAndUpdate(
-            { vehicle_id: id },
-            { status: status },
+            { vehicle_id: vehicleId },
+            { status: status,
+                location:{
+                    latitude: latitude,
+                    longitude: longitude
+
+                }
+             },
             { new: true } 
         );
 

@@ -43,6 +43,16 @@ const vehicleSchema = new mongoose.Schema({
             default: null
         }
     }, 
+    location:{
+        latitude: {
+            type: Number,
+            default: null
+        },
+        longitude: {
+            type: Number,
+            default: null
+        }
+    }
     
 },{
     timestamps: true,

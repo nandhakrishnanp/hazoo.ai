@@ -143,9 +143,13 @@ app.post("/test", upload.single("image"), async (req, res) => {
 });
 
 app.post("/updateVehicleStatus", async (req, res) => {
-  const { id} = req.body;
+  const { id , latitude , longitude } = req.body;
   try {
-    const result = await updateVehicleStatus(id, "connected");
+    const result = await updateVehicleStatus({
+      vehicleId: id,
+      latitude: latitude,
+      longitude: longitude
+    }, "connected");
     res.status(200).json(result);
   } catch (error) {
     console.error("Error updating vehicle status:", error);
