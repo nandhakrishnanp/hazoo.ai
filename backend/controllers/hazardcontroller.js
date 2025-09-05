@@ -1,4 +1,5 @@
 const hazardshmea = require("../model/hazardshmea");
+const vehicleSchmea = require("../model/vehicleSchmea");
 
 // const hazardSchema = new mongoose.Schema({
 //     cctv_id: {
@@ -52,12 +53,19 @@ const createHazard = async (req, res) => {
      await newhazard.save();
    }
    else{
+    const vehicleDetails =  await vehicleSchmea.findById({
+      vehicle_id:"123"
+    })
+
     const newhazard = new hazardshmea({
       isUser_reported,
       user_id,
       image,
       hazard_type,
-      location,
+      location:{
+        latitude: vehicleDetails.location.latitude ,
+        longitude: vehicleDetails.location.longitude  
+      },
       status:"verification pending"
     });
     await newhazard.save();

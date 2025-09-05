@@ -24,12 +24,12 @@ const Sidebar = () => {
       <div className=" mx-2 p-1  flex">
         <img
           className=" w-14 h-14"
-          src="https://mediaresource.sfo2.digitaloceanspaces.com/wp-content/uploads/2024/04/29180319/tamilnadu-police-logo-A7B0493857-seeklogo.com.png"
+          src="https://upload.wikimedia.org/wikipedia/commons/d/df/K1Af86T5-1.jpg"
           alt=""
         />
         <div className="px-3">
           <p className=" font-Popin text-sm font-bold">
-            Coimbatore City Police
+            Coimbatore City Corporation
           </p>
           <button
             onClick={() => {

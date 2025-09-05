@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import axiosInstance from "../../../axiosConfig";
 import { format } from "date-fns";
 import { useFetcher } from "react-router-dom";
+import locationIcon from "../../assets/location.png"
 import {
   Camera,
   Clock,
@@ -30,6 +32,14 @@ const Map = () => {
       console.error("Failed to fetch hazards:", error);
     }
   };
+
+
+  const customIcon = L.icon({
+      iconUrl: locationIcon,
+      iconSize: [38, 38], // Size of your icon in pixels (width, height)
+      iconAnchor: [19, 38], // Point of the icon corresponding to the marker's location (x, y)
+      popupAnchor: [0, -38] // Point from which the popup should open relative to the iconAnchor
+    });
 
   const getAddress = async (latitude, longitude) => {
     try {
@@ -222,6 +232,7 @@ const Map = () => {
         {hazards &&
           hazards.map((hazard) => (
             <Marker
+              icon={customIcon}
               key={hazard.id}
               position={[hazard.location.latitude, hazard.location.longitude]}
             >

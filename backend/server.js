@@ -11,7 +11,7 @@ const axios = require("axios");
 const port = 3000;
 const FormData = require("form-data");
 const {updateVehicleStatus}= require("./middleware/updateVehcileStatus");
-
+const vehicleSchmea = require("./model/vehicleSchmea");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/"); // Destination folder
@@ -34,7 +34,7 @@ const upload = multer({
   },
 });
 dotenv.config();
-  app.use(cors());
+  //app.use(cors());
 app.use(express.json());
 
 const connectDb = async () => {
@@ -116,19 +116,23 @@ app.post("/test", upload.single("image"), async (req, res) => {
          console.log(req.body);
         if (vehicle_id) {
           
-
-          
+            const vehicleDetails =  await vehicleSchmea.findOne({
+                vehicle_id:"123"
+              })
+           console.log(vehicleDetails.location.latitude , vehicleDetails.location.longitude);
+           
           const newhazard = new hazardshmea({
             vehicle_id,
             image: url,
             hazard_type:"Pothole",
             location:{
-                latitude:location[0],
-                longitude:location[1]
+                latitude:vehicleDetails.location.latitude,
+                longitude:vehicleDetails.location.longitude
             },
           });
           await newhazard.save();
-    
+          console.log(newhazard);
+          
           return res.send("received successfully");
         } else {
            return   res.send("error");
@@ -158,18 +162,9 @@ app.post("/updateVehicleStatus", async (req, res) => {
 });
 
 
-const val = [10.909177, 77.004637];
 
-app.get("/simulatedlat", (req, res) => {
-  res.status(200).send(val);
 
-  const latOffset = 100 / 111000; // ~0.0009009
-  const lonOffset = 100 / (111000 * Math.cos(val[0] * Math.PI / 180)); // Adjusted for latitude
-  console.log(val);
-  
-  val[0] += latOffset;
-  val[1] += lonOffset;
-});
+
 
 
 app.listen(process.env.X_ZOHO_CATALYST_LISTEN_PORT || 3000, () => {
