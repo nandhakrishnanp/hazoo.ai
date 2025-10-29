@@ -34,7 +34,7 @@ const upload = multer({
   },
 });
 dotenv.config();
-  //app.use(cors());
+// app.use(cors());
 app.use(express.json());
 
 const connectDb = async () => {

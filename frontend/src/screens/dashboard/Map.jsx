@@ -5,7 +5,7 @@ import "leaflet/dist/leaflet.css";
 import axiosInstance from "../../../axiosConfig";
 import { format } from "date-fns";
 import { useFetcher } from "react-router-dom";
-import locationIcon from "../../assets/location.png"
+import locationIcon from "../../assets/location.png";
 import {
   Camera,
   Clock,
@@ -22,7 +22,7 @@ const Map = () => {
   const [selected, setSelected] = useState(null);
   const [address, setAddress] = useState(null);
   const [isLoadingAddress, setIsLoadingAddress] = useState(false);
-
+  const [isImageFullScreen, setIsImageFullScreen] = useState(false);
   const fetchHazards = async () => {
     try {
       const response = await axiosInstance.get("/hazard/getallhazards");
@@ -33,13 +33,12 @@ const Map = () => {
     }
   };
 
-
   const customIcon = L.icon({
-      iconUrl: locationIcon,
-      iconSize: [38, 38], // Size of your icon in pixels (width, height)
-      iconAnchor: [19, 38], // Point of the icon corresponding to the marker's location (x, y)
-      popupAnchor: [0, -38] // Point from which the popup should open relative to the iconAnchor
-    });
+    iconUrl: locationIcon,
+    iconSize: [38, 38], // Size of your icon in pixels (width, height)
+    iconAnchor: [19, 38], // Point of the icon corresponding to the marker's location (x, y)
+    popupAnchor: [0, -38], // Point from which the popup should open relative to the iconAnchor
+  });
 
   const getAddress = async (latitude, longitude) => {
     try {
@@ -93,22 +92,39 @@ const Map = () => {
 
   return (
     <div className="relative">
+      {isImageFullScreen && selected && (
+        <div className=" absolute  z-50   top-11 rounded-sm left-32">
+          <button
+            className="
+             absolute  right-5 top-5 bg-black rounded-full
+           "
+            onClick={() => {
+              setIsImageFullScreen(false);
+            }}
+          >
+            <X className="w-6 h-6  text-white m-2 cursor-pointer" />
+          </button>
+
+          <img
+            className=" rounded-md p-4"
+            src={selected.image}
+            alt="Hazard Fullscreen"
+          />
+        </div>
+      )}
       {selected && (
         <div className="fixed right-0 top-0 bottom-0 w-96 bg-white shadow-2xl border-l border-gray-200 z-50 overflow-hidden">
           <div className="h-full flex flex-col">
             <div className="relative">
               <img
-                className="w-full h-64 object-cover"
+                onClick={() => {
+                  setIsImageFullScreen(true);
+                }}
+                className="w-full h-64 object-cover cursor-pointer"
                 src={selected.image}
                 alt="Hazard"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-              <button
-                onClick={() => setSelected(null)}
-                className="absolute top-4 right-4 w-8 h-8 bg-white/90 hover:bg-white rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110"
-              >
-                <X className="w-4 h-4 text-gray-700" />
-              </button>
+
               <div className="absolute bottom-4 left-4 right-4">
                 <h2 className="text-white font-bold text-xl font-Popin mb-2">
                   Hazard Details
@@ -226,7 +242,6 @@ const Map = () => {
         zoom={12}
         className="z-0"
         style={{ height: "100vh", width: "100%" }}
-      
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         {hazards &&
