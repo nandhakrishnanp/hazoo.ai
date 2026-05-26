@@ -9,37 +9,42 @@ const Landingpage = () => {
     {
       tag: "01",
       title: "Live Hazard Tracking",
-      description: "Real-time visualization of road hazards on an interactive map."
+      description:
+        "Real-time visualization of road hazards on an interactive map.",
     },
     {
       tag: "02",
       title: "Instant Alerts",
-      description: "Get immediate notifications about hazards in your area."
+      description: "Get immediate notifications about hazards in your area.",
     },
     {
       tag: "03",
       title: "Analytics Dashboard",
-      description: "Comprehensive insights and reporting for authorities."
+      description: "Comprehensive insights and reporting for authorities.",
     },
     {
       tag: "04",
       title: "AI Detection",
-      description: "Advanced computer vision for accurate hazard identification."
+      description:
+        "Advanced computer vision for accurate hazard identification.",
     },
     {
       tag: "05",
       title: "Community Reports",
-      description: "Citizen contributions enhance safety awareness."
+      description: "Citizen contributions enhance safety awareness.",
     },
     {
       tag: "06",
       title: "Reward System",
-      description: "Earn coins for contributing to road safety."
-    }
+      description: "Earn coins for contributing to road safety.",
+    },
   ];
 
   return (
-    <div className="w-full bg-slate-950" style={{ fontFamily: "Poppins, sans-serif" }}>
+    <div
+      className="w-full bg-slate-950"
+      style={{ fontFamily: "Poppins, sans-serif" }}
+    >
       <nav className="sticky top-0 z-50 bg-slate-950/90 backdrop-blur border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <div className="text-2xl font-semibold text-white tracking-tight">
@@ -55,17 +60,26 @@ const Landingpage = () => {
       </nav>
 
       <section className="relative overflow-hidden px-4 py-20 sm:py-28 bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900">
-        <div aria-hidden="true" className="absolute -top-24 right-[-6rem] h-72 w-72 rounded-full bg-purple-600/30 blur-3xl" />
-        <div aria-hidden="true" className="absolute -bottom-32 left-[-6rem] h-80 w-80 rounded-full bg-fuchsia-500/20 blur-3xl" />
+        <div
+          aria-hidden="true"
+          className="absolute -top-24 right-[-6rem] h-72 w-72 rounded-full bg-purple-600/30 blur-3xl"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute -bottom-32 left-[-6rem] h-80 w-80 rounded-full bg-fuchsia-500/20 blur-3xl"
+        />
         <div className="relative max-w-5xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-purple-200 border border-white/10">
             Smart infrastructure for safer roads
           </div>
           <h1 className="mt-6 text-5xl sm:text-6xl font-semibold text-white leading-tight">
-            Road safety powered by<br />real-time AI detection
+            Road safety powered by
+            <br />
+            real-time AI detection
           </h1>
           <p className="mt-6 text-lg sm:text-xl text-slate-200 max-w-3xl mx-auto leading-relaxed">
-            Hazoo.ai connects citizens and authorities with live hazard insights, actionable alerts, and a clear path to resolution.
+            Hazoo.ai connects citizens and authorities with live hazard
+            insights, actionable alerts, and a clear path to resolution.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <button
@@ -87,7 +101,9 @@ const Landingpage = () => {
       <section className="py-20 px-4 bg-slate-950">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-semibold text-white mb-4">Built for clarity and speed</h2>
+            <h2 className="text-4xl font-semibold text-white mb-4">
+              Built for clarity and speed
+            </h2>
             <p className="text-lg text-slate-300">
               A clean workflow for detection, reporting, and resolution.
             </p>
@@ -121,7 +137,7 @@ const Landingpage = () => {
               { label: "Active Users", value: "10K+" },
               { label: "Hazards Detected", value: "5K+" },
               { label: "Cities Covered", value: "15+" },
-              { label: "Uptime", value: "99.9%" }
+              { label: "Uptime", value: "99.9%" },
             ].map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="text-3xl sm:text-4xl font-semibold text-white mb-2">
@@ -138,7 +154,9 @@ const Landingpage = () => {
 
       <section className="py-20 px-4 bg-slate-950">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-semibold text-white mb-4">Start with one report</h2>
+          <h2 className="text-4xl font-semibold text-white mb-4">
+            Start with one report
+          </h2>
           <p className="text-lg text-slate-300 mb-8">
             A fast, transparent way to make roads safer for everyone.
           </p>
@@ -154,10 +172,12 @@ const Landingpage = () => {
       <footer className="bg-slate-950 text-slate-400 py-12 px-4 border-t border-slate-800">
         <div className="max-w-7xl mx-auto text-center">
           <p className="mb-2">
-            <span className="font-semibold text-white">Hazoo.ai</span> - Intelligent Road Safety Solution
+            <span className="font-semibold text-white">Hazoo.ai</span> -
+            Intelligent Road Safety Solution
           </p>
           <p className="text-sm">
-            © 2025 Hazoo.ai. All rights reserved. | Uyir Hackathon Best Project Award
+            © 2025 Hazoo.ai. All rights reserved. | Uyir Hackathon Best Project
+            Award
           </p>
         </div>
       </footer>
