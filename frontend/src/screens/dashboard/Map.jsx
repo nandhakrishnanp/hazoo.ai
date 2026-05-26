@@ -44,7 +44,7 @@ const Map = () => {
     try {
       setIsLoadingAddress(true);
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
+        `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
       );
       const data = await response.json();
       setAddress(data.display_name);
@@ -89,6 +89,15 @@ const Map = () => {
       getAddress(selected.location.latitude, selected.location.longitude);
     }
   }, [selected]);
+
+  const latitude = selected?.location?.latitude;
+  const longitude = selected?.location?.longitude;
+  const googleMapsUrl =
+    latitude != null && longitude != null
+      ? `https://www.google.com/maps?q=${encodeURIComponent(
+          `${latitude},${longitude}`,
+        )}`
+      : null;
 
   return (
     <div className="relative">
@@ -151,7 +160,7 @@ const Map = () => {
                   <div className="flex-1">
                     <div
                       className={`flex items-center gap-2 p-3 rounded-lg border ${getStatusColor(
-                        selected.status
+                        selected.status,
                       )}`}
                     >
                       {getStatusIcon(selected.status)}
@@ -227,6 +236,34 @@ const Map = () => {
                         <p className="font-semibold text-gray-800 font-Popin text-sm leading-relaxed">
                           {address || "Address not available"}
                         </p>
+                      )}
+                      <div className="mt-3 grid grid-cols-2 gap-2 text-xs text-gray-600">
+                        <div>
+                          <span className="block uppercase tracking-wide text-[10px] text-gray-500">
+                            Latitude
+                          </span>
+                          <span className="font-semibold text-gray-800">
+                            {latitude ?? "N/A"}
+                          </span>
+                        </div>
+                        <div>
+                          <span className="block uppercase tracking-wide text-[10px] text-gray-500">
+                            Longitude
+                          </span>
+                          <span className="font-semibold text-gray-800">
+                            {longitude ?? "N/A"}
+                          </span>
+                        </div>
+                      </div>
+                      {googleMapsUrl && (
+                        <a
+                          href={googleMapsUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="mt-3 inline-flex items-center justify-center bg-primary hover:bg-primary/80 text-white py-2 px-3 rounded-md cursor-pointer font-Popin text-xs font-medium transition-all duration-200"
+                        >
+                          Open in Google Maps
+                        </a>
                       )}
                     </div>
                   </div>
